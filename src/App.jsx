@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import Counter from './components/Counter';
 import DisplayTodo from './components/DisplayTodo';
+import Form from './components/Form';
 import TodoInput from './components/TodoInput';
 
 const App = () => {
@@ -26,9 +27,14 @@ const App = () => {
   };
 
   const handleEdit = (id) => {
-    const todoItem = todoData.filter(item => item.id !== id)
-    const updateItem = todoItem[todo]
-    setTodoData(updateItem)
+    const findItem = todoData.filter(item => item.id !== id)
+    const updateItem = prompt("Update Todo")
+    const todoItem = {
+      id, 
+      todo: updateItem,
+    }
+    !todo ? alert('Todo data cannot be empty!') : todo.includes("  ") ? alert("Todo data cannot be double space") : todo.length < 5 ? alert("Todo data too short!") : setTodoData((prev) => [...prev, todoItem]) 
+    console.log(todoItem);
   };
 
   const showTodo = todoData?.map((item, index) => <DisplayTodo item={item} key={index} handleEdit={handleEdit} handleDelete={handleDelete}/>)
@@ -36,6 +42,7 @@ const App = () => {
   return (
     <>
       <Counter/>
+      <Form/>
       <TodoInput todo={todo} handleChange={handleChange} handleAdd={handleAdd}/>
       {showTodo}
     </>
